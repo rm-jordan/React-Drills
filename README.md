@@ -46,23 +46,19 @@ Edit `client/src/currentUser.ts` to switch between employee and manager. No real
 
 ## Study
 
-- **[PRACTICE_GUIDE.md](./PRACTICE_GUIDE.md)** — **start here** — step-by-step order of operations with checkboxes
+- **scratch/README.md** — **build from scratch** mini-app (`npm run dev:scratch` → :5174)
+- **[PRACTICE_GUIDE.md](./PRACTICE_GUIDE.md)** — study the main app in order
 - **STUDY_NOTES.md** — patterns, bugs, architecture, talking points
-- **PATTERN_CHEATSHEET.md** — one-line patterns for all 12 drills + reset command
+- **PATTERN_CHEATSHEET.md** — one-line patterns + drill reset
+- **client/src/drills/** — bug-fix exercises
 
 ## Project structure
 
 ```
 react-drills/
-├── client/src/
-│   ├── api/client.ts          # All fetch helpers
-│   ├── components/            # UI components
-│   ├── drills/                # Broken examples (Step 9)
-│   └── currentUser.ts         # Simulated auth
-├── server/src/
-│   ├── data/seed.ts           # Seed users, updates, comments
-│   ├── routes/                  # Express routers
-│   ├── store.ts               # In-memory store
-│   └── validation.ts          # Server-side validation
+├── scratch/                   # Mini-app YOU build (ports 5174 / 3002)
+├── client/src/                # Main app frontend (reference)
+├── server/src/                # Main app backend (reference)
+├── PATTERN_CHEATSHEET.md
 └── STUDY_NOTES.md
 ```

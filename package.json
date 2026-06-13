@@ -2,8 +2,10 @@
   "name": "react-drills",
   "private": true,
   "scripts": {
-    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client && npm install --prefix scratch/server && npm install --prefix scratch/client",
+    "install:scratch": "npm install --prefix scratch/server && npm install --prefix scratch/client",
     "dev": "concurrently -n server,client -c blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:scratch": "concurrently -n scratch-api,scratch-ui -c cyan,magenta \"npm run dev --prefix scratch/server\" \"npm run dev --prefix scratch/client\"",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
     "build": "npm run build --prefix server && npm run build --prefix client"
