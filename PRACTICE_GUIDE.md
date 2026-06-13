@@ -181,22 +181,27 @@ Do these **after Track A**. Fix in this order (easiest → hardest).
 ### Drill 1 — Controlled input
 - [ ] Open `client/src/drills/BrokenControlledInput.tsx`
 - [ ] Fix without peeking
+- [ ] Run `cd client && npm run test:drills` — Drill 1 test should pass
 - [ ] Compare to `client/src/components/CreateUpdateForm.tsx`
 
 ### Drill 2 — State mutation
 - [ ] Open `client/src/drills/BrokenStateMutation.tsx`
+- [ ] Re-run `npm run test:drills` — Drill 2 test should pass
 - [ ] Compare to `UpdatesPage.tsx` → `handleCreated`
 
 ### Drill 3 — useEffect dependencies
 - [ ] Open `client/src/drills/BrokenUseEffect.tsx`
+- [ ] Re-run `npm run test:drills` — Drill 3 test should pass
 - [ ] Compare to `client/src/components/CommentList.tsx`
 
 ### Drill 4 — useMemo + immutable sort
 - [ ] Open `client/src/drills/BrokenFilterMemo.tsx`
+- [ ] Re-run `npm run test:drills` — Drill 4 test should pass
 - [ ] Compare to `UpdatesPage.tsx` → `filteredUpdates`
 
 ### Drill 5 — Fetch race condition
 - [ ] Open `client/src/drills/BrokenNestedFetch.tsx`
+- [ ] Re-run `npm run test:drills` — all 5 tests should pass
 - [ ] Compare to `client/src/components/CommentList.tsx` (cleanup flag)
 
 **Optional:** Import a fixed drill into `App.tsx` temporarily to confirm behavior in the browser.
