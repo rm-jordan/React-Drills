@@ -5,19 +5,23 @@
  */
 
 import type { Comment, Update, User } from "./types.js";
+import { comments as seedComments, updates as seedUpdates, users as seedUsers } from "./data/seed.js";
 
-export const users: User[] = [];
-export const updates: Update[] = [];
-export const comments: Comment[] = [];
+export const users: User[] = [...seedUsers];
+export const updates: Update[] = [...seedUpdates];
+export const comments: Comment[] = [...seedComments];
+
+let nextUpdateId = 4;
+let nextCommentId = 3;
 
 export function generateUpdateId(): string {
-  throw new Error("TODO: implement generateUpdateId");
+  return `upd${nextUpdateId++}`;
 }
 
 export function generateCommentId(): string {
-  throw new Error("TODO: implement generateCommentId");
+  return `cmt${nextCommentId++}`;
 }
 
 export function findUser(id: string): User | undefined {
-  throw new Error("TODO: implement findUser");
+  return users.find((user) => user.id === id);
 }

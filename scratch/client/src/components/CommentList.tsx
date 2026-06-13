@@ -1,7 +1,5 @@
 /** SESSION 6 — TODO: useEffect fetch comments, refreshKey, loading/error/empty */
 
-import type { Comment } from "../types";
-
 interface Props {
   updateId: string;
   refreshKey: number;

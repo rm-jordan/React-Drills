@@ -25,20 +25,20 @@ export const updates: Update[] = [
   {
     id: "upd2",
     userId: "u2",
-    title: "Blocked on API access",
+    title: "API integration blocked",
     body: "Waiting for staging credentials before I can test the integration.",
     status: "blocked",
-    blockers: "Need staging API keys from DevOps",
+    blockers: "Need staging API keys from DevOps team",
     createdAt: "2026-06-11T14:30:00.000Z",
   },
   {
     id: "upd3",
     userId: "u1",
     title: "Q2 goals draft",
-    body: "Shared first draft of Q2 goals with the team for feedback.",
-    status: "reviewed",
-    blockers: "",
-    createdAt: "2026-06-09T16:00:00.000Z",
+    body: "Shared first draft of Q2 goals with the team",
+    createdAt: "2026-06-11T14:30:00.000Z",
+    status: "pending",
+    blockers: ""
   },
 ];
 

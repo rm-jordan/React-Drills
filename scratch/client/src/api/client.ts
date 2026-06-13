@@ -10,46 +10,79 @@ import type { Comment, Stats, Update, UpdateStatus } from "../types";
 const BASE = "/api";
 
 // TODO: async function request<T>(path, options?) { ... }
+async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(`${BASE}${path}`, {
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    const message = typeof body.error === "string" ? body.error : res.statusText;
+    throw new Error(message || `Request failed (${res.status})`);
+  }
+
+  if (res.status === 204) {
+    return undefined as T;
+  }
+
+  return res.json() as Promise<T>;
+}
 
 export function fetchUpdates(): Promise<Update[]> {
-  throw new Error("TODO: fetchUpdates");
+  return request<Update[]>("/updates");
 }
 
-export function fetchUpdate(_id: string): Promise<Update> {
-  throw new Error("TODO: fetchUpdate");
+export function fetchUpdate(id: string): Promise<Update> {
+  return request<Update>(`/updates/${id}`);
 }
 
-export function createUpdate(_data: {
+export function createUpdate(data: {
   title: string;
   body: string;
   blockers?: string;
   userId: string;
 }): Promise<Update> {
-  throw new Error("TODO: createUpdate");
+  return request<Update>("/updates", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }
 
 export function patchUpdate(
-  _id: string,
-  _data: Partial<{ title: string; body: string; status: UpdateStatus; blockers: string }>
+  id: string,
+  data: Partial<{ title: string; body: string; status: UpdateStatus; blockers: string }>
 ): Promise<Update> {
-  throw new Error("TODO: patchUpdate");
+  return request<Update>(`/updates/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
 }
 
-export function deleteUpdate(_id: string): Promise<Update> {
-  throw new Error("TODO: deleteUpdate");
+export function deleteUpdate(id: string): Promise<Update> {
+  return request<Update>(`/updates/${id}`, {
+    method: "DELETE",
+  });
 }
 
-export function fetchComments(_updateId: string): Promise<Comment[]> {
-  throw new Error("TODO: fetchComments");
+// --- Comments (nested under updates) ---
+
+export function fetchComments(updateId: string): Promise<Comment[]> {
+  return request<Comment[]>(`/updates/${updateId}/comments`);
 }
 
 export function createComment(
-  _updateId: string,
-  _data: { text: string; userId: string }
+  updateId: string,
+  data: { text: string; userId: string }
 ): Promise<Comment> {
-  throw new Error("TODO: createComment");
+  return request<Comment>(`/updates/${updateId}/comments`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }
 
+// --- Stats ---
+
 export function fetchStats(): Promise<Stats> {
-  throw new Error("TODO: fetchStats");
+  return request<Stats>("/stats");
 }
