@@ -14,11 +14,16 @@ export function BrokenNestedFetch({ updateId }: Props) {
 
   useEffect(() => {
     // BUG: no cancellation — slow response for update A can overwrite update B
+    let cancelled = false
     async function load() {
       const data = await fetchComments(updateId);
-      setComments(data);
+      if(!cancelled) {
+        setComments(data);
+      }
+
     }
     load();
+    return () => { cancelled = true}
   }, [updateId]);
 
   return (

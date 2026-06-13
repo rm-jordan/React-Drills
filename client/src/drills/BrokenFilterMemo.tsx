@@ -4,13 +4,14 @@
 import type { Update } from "../types";
 
 export function filterUpdatesBroken(updates: Update[], search: string): Update[] {
-  const query = search.toLowerCase();
+  const query = search.trim().toLowerCase();
 
-  // BUG: sort() mutates the source array in place
-  updates.sort(
+  const filtered = updates.filter((u) => u.title.toLowerCase().includes(query));
+
+  // Copy before sort — .sort() mutates in place
+  return [...filtered].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
-  return updates.filter((u) => u.title.toLowerCase().includes(query));
 }
 
 // Also practice: wrap the call site in useMemo with [updates, search] deps

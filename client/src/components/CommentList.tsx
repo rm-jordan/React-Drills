@@ -14,6 +14,7 @@ export function CommentList({ updateId, refreshKey, userNames }: CommentListProp
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Cleanup flag — set true on unmount or before the next effect run
     let cancelled = false;
 
     async function load() {
@@ -21,6 +22,7 @@ export function CommentList({ updateId, refreshKey, userNames }: CommentListProp
       setError(null);
       try {
         const data = await fetchComments(updateId);
+        // Ignore stale responses if user switched updates or effect re-ran
         if (!cancelled) {
           setComments(data);
         }
@@ -36,9 +38,11 @@ export function CommentList({ updateId, refreshKey, userNames }: CommentListProp
     }
 
     load();
+    // Mark in-flight fetch as stale so it cannot overwrite newer data
     return () => {
       cancelled = true;
     };
+    // Re-fetch when a different update is selected or parent bumps refreshKey
   }, [updateId, refreshKey]);
 
   if (loading) return <p className="muted">Loading comments…</p>;

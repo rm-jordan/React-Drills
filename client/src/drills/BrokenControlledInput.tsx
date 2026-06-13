@@ -9,7 +9,6 @@ export function BrokenControlledInput() {
   return (
     <input
       // BUG: defaultValue + value together — use only value for controlled inputs
-      defaultValue=""
       value={title}
       onChange={(e) => setTitle(e.target.value)}
       placeholder="Title"

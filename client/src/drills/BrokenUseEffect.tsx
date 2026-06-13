@@ -16,7 +16,7 @@ export function BrokenUseEffect({ updateId }: Props) {
   useEffect(() => {
     fetchComments(updateId).then(setComments);
     // BUG: empty deps — only runs once on mount
-  }, []);
+  }, [updateId]);
 
   return (
     <ul>

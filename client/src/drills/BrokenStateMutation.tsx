@@ -9,8 +9,7 @@ export function BrokenStateMutation() {
 
   function addUpdate(update: Update) {
     // BUG: push mutates the same array reference
-    updates.push(update);
-    setUpdates(updates);
+    setUpdates((prev) => [update, ...prev]);
   }
 
   return (
