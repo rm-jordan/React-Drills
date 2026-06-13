@@ -1,14 +1,29 @@
-/** SESSION 2 — TODO: map updates to UpdateCard, empty state */
-
 import type { Update } from "../types";
+import { UpdateCard } from "./UpdateCard";
 
-interface Props {
+interface UpdateListProps {
   updates: Update[];
   userNames: Record<string, string>;
   selectedId: string | null;
   onSelect: (id: string) => void;
 }
 
-export function UpdateList(_props: Props) {
-  return <p className="muted">TODO: UpdateList</p>;
+export function UpdateList({ updates, userNames, selectedId, onSelect }: UpdateListProps) {
+  if (updates.length === 0) {
+    return <p className="muted">No updates to show.</p>;
+  }
+
+  return (
+    <div>
+      {updates.map((update) => (
+        <UpdateCard
+          key={update.id}
+          update={update}
+          authorName={userNames[update.userId] ?? "Unknown"}
+          selected={update.id === selectedId}
+          onSelect={onSelect}
+        />
+      ))}
+    </div>
+  );
 }

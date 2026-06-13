@@ -55,17 +55,21 @@ curl -X POST http://localhost:3002/api/updates \
 
 ### Session 2 — API client + list (~45 min)
 
+**Already wired for you:** `UpdateList`, `UpdateCard`, `UpdateDetail`, layout, static data in `data/staticData.ts`.
+
+**YOUR tasks in `UpdatesPage.tsx` only:**
+1. Change `useState(STATIC_UPDATES)` → `useState([])`
+2. Fill in the `useEffect` TODOs (`setLoading`, `setError`, `setUpdates`, `setSelectedId`)
+3. Uncomment `load()`
+4. Confirm browser shows API data (not the “Showing static data” message)
+
 **Files:**
-- [ ] `scratch/client/src/api/client.ts`
-- [ ] `scratch/client/src/components/UpdatesPage.tsx` (load only)
-- [ ] `scratch/client/src/components/UpdateList.tsx`
-- [ ] `scratch/client/src/components/UpdateCard.tsx`
-- [ ] `scratch/client/src/components/UpdateDetail.tsx` (read-only)
-- [ ] Uncomment `<UpdatesPage />` in `scratch/client/src/App.tsx`
+- [x] `scratch/client/src/api/client.ts` (you built this)
+- [ ] `scratch/client/src/components/UpdatesPage.tsx` — **hooks + fetch only**
+- [x] `UpdateList`, `UpdateCard`, `UpdateDetail` — done, don't touch unless curious
+- [x] `<UpdatesPage />` in `App.tsx`
 
-**Verify:** Browser shows seed updates, click to see detail, loading/error states work.
-
-**Reference:** `client/src/api/client.ts`, `UpdatesPage`, list components
+**Verify:** Browser shows seed updates from API, click to see detail, loading/error states work.
 
 ---
 

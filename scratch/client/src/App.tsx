@@ -3,7 +3,7 @@
  * Session 2: import UpdatesPage
  */
 
-// import { UpdatesPage } from "./components/UpdatesPage";
+import { UpdatesPage } from "./components/UpdatesPage";
 
 export default function App() {
   return (
@@ -13,10 +13,7 @@ export default function App() {
         <code>:5173</code>. This app runs at <code>:5174</code>. See <code>scratch/README.md</code>.
       </div>
 
-      <h1>Employee Updates (scratch)</h1>
-      <p className="muted">Session 2: wire up UpdatesPage here.</p>
-
-      {/* <UpdatesPage /> */}
+      <UpdatesPage />
     </div>
   );
 }
