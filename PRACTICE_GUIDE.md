@@ -208,6 +208,24 @@ Do these **after Track A**. Fix in this order (easiest → hardest).
 
 ---
 
+## Track C Phase 2 — Interview scenario drills (after Phase 1)
+
+These cover **lists, rendering, and app wiring** — closer to a live interview.
+
+| Order | File | What you're fixing |
+|-------|------|--------------------|
+| 6 | `BrokenMapRender.tsx` | Array → JSX (`.map` not `.forEach`) |
+| 7 | `BrokenListKeys.tsx` | Stable `key={item.id}` in lists |
+| 8 | `BrokenUpdateInList.tsx` | Update one item in array with `.map()` |
+| 9 | `BrokenRenderStates.tsx` | Loading / error / empty early returns |
+| 10 | `BrokenParentSync.tsx` | Call `onUpdated()` after PATCH |
+| 11 | `BrokenRoleGate.tsx` | `{role === "manager" && ...}` |
+| 12 | `BrokenLiftSelection.tsx` | Lift `selectedId` to parent |
+
+Run `npm run test:drills` after each — 12 total tests when all pass.
+
+---
+
 ## Quick reference — file touch order (single list)
 
 If you just want a flat sequence of files to open:
@@ -241,6 +259,13 @@ If you just want a flat sequence of files to open:
 26. client/src/drills/BrokenUseEffect.tsx
 27. client/src/drills/BrokenFilterMemo.tsx
 28. client/src/drills/BrokenNestedFetch.tsx
+29. client/src/drills/BrokenMapRender.tsx
+30. client/src/drills/BrokenListKeys.tsx
+31. client/src/drills/BrokenUpdateInList.tsx
+32. client/src/drills/BrokenRenderStates.tsx
+33. client/src/drills/BrokenParentSync.tsx
+34. client/src/drills/BrokenRoleGate.tsx
+35. client/src/drills/BrokenLiftSelection.tsx
 ```
 
 ---

@@ -1,5 +1,5 @@
-// TODO DRILL: React warns about switching between controlled/uncontrolled input.
-// Fix: pick one pattern — fully controlled with value + onChange.
+// SOLVED — reset with: npm run drills:reset
+// Pattern: controlled input = value + onChange only (no defaultValue)
 
 import { useState } from "react";
 
@@ -8,7 +8,6 @@ export function BrokenControlledInput() {
 
   return (
     <input
-      // BUG: defaultValue + value together — use only value for controlled inputs
       value={title}
       onChange={(e) => setTitle(e.target.value)}
       placeholder="Title"

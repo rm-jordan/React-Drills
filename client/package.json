@@ -7,7 +7,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test:drills": "vitest run src/drills",
-    "test:drills:watch": "vitest src/drills"
+    "test:drills:watch": "vitest src/drills",
+    "drills:reset": "cp src/drills/starters/Broken*.tsx src/drills/"
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -1,9 +1,10 @@
-// SOLVED — reset with: npm run drills:reset
-// Pattern: include values used inside effect in the dependency array
+// TODO DRILL: This component fetches comments but has a broken useEffect.
+// Symptoms: comments never reload when updateId changes, or you get a memory leak warning.
+// Fix: correct dependency array + cleanup flag.
 
 import { useEffect, useState } from "react";
-import { fetchComments } from "../api/client";
-import type { Comment } from "../types";
+import { fetchComments } from "../../api/client";
+import type { Comment } from "../../types";
 
 interface Props {
   updateId: string;
@@ -14,7 +15,8 @@ export function BrokenUseEffect({ updateId }: Props) {
 
   useEffect(() => {
     fetchComments(updateId).then(setComments);
-  }, [updateId]);
+    // BUG: empty deps — only runs once on mount
+  }, []);
 
   return (
     <ul>

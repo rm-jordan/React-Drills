@@ -1,54 +1,56 @@
 # Practice Drills
 
 These files contain **intentionally broken** patterns. Do not import them into the main app.
-Fix each file, then confirm your fix using the checklist below.
+Fix each file, then confirm with `npm run test:drills`.
 
-| File | Bug to fix | Working reference |
-|------|------------|-------------------|
-| `BrokenUseEffect.tsx` | Missing/wrong dependency array causes stale data | `CommentList.tsx`, `UpdatesPage.tsx` |
-| `BrokenStateMutation.tsx` | Direct array mutation — React won't re-render | `UpdatesPage.handleCreated` |
-| `BrokenFilterMemo.tsx` | Sort mutates source array; filter not memoized | `UpdatesPage` filteredUpdates useMemo |
-| `BrokenControlledInput.tsx` | Mixing defaultValue + value (controlled/uncontrolled) | `CreateUpdateForm.tsx` |
-| `BrokenNestedFetch.tsx` | Fetch runs on every render; no cleanup | `CommentList.tsx` |
+## Phase 1 — Core React patterns (start here)
+
+| # | File | Bug to fix | Working reference |
+|---|------|------------|-------------------|
+| 1 | `BrokenControlledInput.tsx` | defaultValue + value together | `CreateUpdateForm.tsx` |
+| 2 | `BrokenStateMutation.tsx` | Array `.push()` on state | `UpdatesPage.handleCreated` |
+| 3 | `BrokenUseEffect.tsx` | Wrong dependency array | `CommentList.tsx` |
+| 4 | `BrokenFilterMemo.tsx` | `.sort()` mutates source array | `UpdatesPage` filteredUpdates |
+| 5 | `BrokenNestedFetch.tsx` | No fetch cleanup / race condition | `CommentList.tsx` |
+
+## Phase 2 — Interview scenarios (lists, render, app patterns)
+
+| # | File | Bug to fix | Working reference |
+|---|------|------------|-------------------|
+| 6 | `BrokenMapRender.tsx` | `.forEach()` instead of `.map()` — nothing renders | `UpdateList.tsx` |
+| 7 | `BrokenListKeys.tsx` | `key={index}` — wrong row state after delete | `UpdateList` / `UpdateCard` |
+| 8 | `BrokenUpdateInList.tsx` | Mutates item inside state array | `UpdatesPage.handleUpdated` |
+| 9 | `BrokenRenderStates.tsx` | No loading/error/empty early returns | `UpdatesPage` load + empty states |
+| 10 | `BrokenParentSync.tsx` | PATCH works locally but parent not notified | `UpdateDetail` + `onUpdated` |
+| 11 | `BrokenRoleGate.tsx` | Manager action shown to everyone | `UpdateDetail` + `currentUser` |
+| 12 | `BrokenLiftSelection.tsx` | Selection stuck in child — detail never updates | `UpdatesPage` selectedId pattern |
 
 ## How to practice
 
-1. Read the `// TODO:` comment at the top of each drill file.
-2. Try to spot the bug without running the app.
-3. Fix it in place.
-4. Confirm your fix (see below).
-5. Compare to the working reference component.
+1. Read the `// TODO:` at the top of the file.
+2. Fix without peeking at the reference.
+3. Run `npm run test:drills` (or `npm run test:drills:watch`).
+4. Compare your fix to the reference component.
 
-## How to confirm your fix
-
-Use **all three** — tests are the fastest objective check.
-
-### 1. Automated tests (recommended)
-
-From the `client/` folder:
+## Confirm your fix
 
 ```bash
+cd client
 npm run test:drills
 ```
 
-- Tests **fail** on the broken starter code — that's expected.
-- Fix one drill → re-run → that test should pass.
-- All 5 passing = Track C complete.
+- Phase 1: 5 tests (drills 1–5)
+- Phase 2: 7 more tests (drills 6–12)
+- **All 12 passing** = drills complete
 
-Watch mode while you work: `npm run test:drills:watch`
+## Redo drills
 
-### 2. Compare to the working app
+Broken copies are saved in `starters/`. Current files are **solutions** (all tests pass).
 
-Open the reference file in the table above and diff mentally:
-- Same pattern? (controlled input, immutable setState, deps array, cleanup flag, copy before sort)
+```bash
+cd client
+npm run drills:reset      # copy broken starters → drills/
+npm run test:drills       # all should fail — then fix each one
+```
 
-### 3. Manual browser check (optional)
-
-Temporarily render a drill in `App.tsx`, use the app, watch the browser console for React warnings.
-
-### Redo drills
-
-Reset a file to broken: `git restore client/src/drills/BrokenControlledInput.tsx`  
-Reset all drills: `git restore client/src/drills/`
-
-Tag clean state once: `git tag drills-clean` → redo with `git restore --source=drills-clean client/src/drills/`
+Peek at solutions on git remote or diff after trying. See **PATTERN_CHEATSHEET.md** at repo root.

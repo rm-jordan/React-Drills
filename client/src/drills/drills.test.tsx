@@ -2,22 +2,31 @@
  * Drill verification tests — intentionally FAIL until you fix each drill file.
  * Run: npm run test:drills
  */
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Comment, Update } from "../types";
 import { BrokenControlledInput } from "./BrokenControlledInput";
 import { filterUpdatesBroken } from "./BrokenFilterMemo";
+import { BrokenLiftSelection } from "./BrokenLiftSelection";
+import { BrokenListKeys } from "./BrokenListKeys";
+import { BrokenMapRender } from "./BrokenMapRender";
 import { BrokenNestedFetch } from "./BrokenNestedFetch";
+import { BrokenParentSync } from "./BrokenParentSync";
+import { BrokenRenderStates } from "./BrokenRenderStates";
+import { BrokenRoleGate } from "./BrokenRoleGate";
 import { BrokenStateMutation } from "./BrokenStateMutation";
+import { BrokenUpdateInList } from "./BrokenUpdateInList";
 import { BrokenUseEffect } from "./BrokenUseEffect";
 
 vi.mock("../api/client", () => ({
   fetchComments: vi.fn(),
+  patchUpdate: vi.fn(),
 }));
 
-import { fetchComments } from "../api/client";
+import { fetchComments, patchUpdate } from "../api/client";
 
 const mockFetchComments = vi.mocked(fetchComments);
+const mockPatchUpdate = vi.mocked(patchUpdate);
 
 const sampleUpdate = (id: string, title: string, createdAt: string): Update => ({
   id,
@@ -39,6 +48,7 @@ const sampleComment = (id: string, updateId: string, text: string): Comment => (
 
 beforeEach(() => {
   mockFetchComments.mockReset();
+  mockPatchUpdate.mockReset();
 });
 
 afterEach(() => {
@@ -128,6 +138,90 @@ describe("Drill 5 — BrokenNestedFetch", () => {
     await waitFor(() => {
       expect(screen.queryByText("Stale Comment A")).not.toBeInTheDocument();
     });
-    expect(screen.getByText("Comment B")).toBeInTheDocument();
+    expect(screen.getAllByText("Comment B")).toHaveLength(1);
+  });
+});
+
+describe("Drill 6 — BrokenMapRender", () => {
+  it("renders list items from an array using .map()", () => {
+    render(<BrokenMapRender />);
+    expect(screen.getByText("Alpha update")).toBeInTheDocument();
+    expect(screen.getByText("Beta update")).toBeInTheDocument();
+  });
+});
+
+describe("Drill 7 — BrokenListKeys", () => {
+  it("keeps row state on the correct item after a delete", () => {
+    render(<BrokenListKeys />);
+
+    const thirdRow = screen.getByTestId("row-c");
+    fireEvent.click(within(thirdRow).getByRole("checkbox"));
+    expect(within(thirdRow).getByRole("checkbox")).toBeChecked();
+
+    const firstRow = screen.getByTestId("row-a");
+    fireEvent.click(within(firstRow).getByRole("button", { name: "Delete" }));
+
+    const remainingThird = screen.getByText("Third").closest("[data-testid='row-c']");
+    expect(remainingThird).not.toBeNull();
+    expect(within(remainingThird!).getByRole("checkbox")).toBeChecked();
+  });
+});
+
+describe("Drill 8 — BrokenUpdateInList", () => {
+  it("updates status in the list after mark reviewed", () => {
+    render(<BrokenUpdateInList />);
+
+    fireEvent.click(screen.getByRole("button", { name: /mark reviewed/i }));
+    expect(screen.getByTestId("status-upd1")).toHaveTextContent("reviewed");
+  });
+});
+
+describe("Drill 9 — BrokenRenderStates", () => {
+  it("shows only loading state while fetching", () => {
+    render(<BrokenRenderStates updates={[]} loading={true} error={null} />);
+    expect(screen.getByText("Loading updates…")).toBeInTheDocument();
+    expect(screen.queryByTestId("update-list")).not.toBeInTheDocument();
+  });
+
+  it("shows empty message when there are no updates", () => {
+    render(<BrokenRenderStates updates={[]} loading={false} error={null} />);
+    expect(screen.getByText("No updates yet.")).toBeInTheDocument();
+  });
+});
+
+describe("Drill 10 — BrokenParentSync", () => {
+  it("notifies parent after a successful PATCH", async () => {
+    const onUpdated = vi.fn();
+    const update = sampleUpdate("upd1", "Test", "2026-06-10T09:00:00.000Z");
+    mockPatchUpdate.mockResolvedValue({ ...update, status: "reviewed" });
+
+    render(<BrokenParentSync update={update} onUpdated={onUpdated} />);
+    fireEvent.click(screen.getByRole("button", { name: /mark reviewed/i }));
+
+    await waitFor(() => {
+      expect(onUpdated).toHaveBeenCalledWith(expect.objectContaining({ status: "reviewed" }));
+    });
+  });
+});
+
+describe("Drill 11 — BrokenRoleGate", () => {
+  it("hides manager review action for employees", () => {
+    render(<BrokenRoleGate role="employee" status="pending" onReview={() => {}} />);
+    expect(screen.queryByRole("button", { name: /mark as reviewed/i })).not.toBeInTheDocument();
+  });
+
+  it("shows manager review action for managers", () => {
+    render(<BrokenRoleGate role="manager" status="pending" onReview={() => {}} />);
+    expect(screen.getByRole("button", { name: /mark as reviewed/i })).toBeInTheDocument();
+  });
+});
+
+describe("Drill 12 — BrokenLiftSelection", () => {
+  it("updates detail when a different list item is selected", () => {
+    render(<BrokenLiftSelection />);
+    expect(screen.getByTestId("detail")).toHaveTextContent("First update");
+
+    fireEvent.click(screen.getByRole("button", { name: "Second update" }));
+    expect(screen.getByTestId("detail")).toHaveTextContent("Second update");
   });
 });

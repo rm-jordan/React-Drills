@@ -48,7 +48,7 @@ Edit `client/src/currentUser.ts` to switch between employee and manager. No real
 
 - **[PRACTICE_GUIDE.md](./PRACTICE_GUIDE.md)** — **start here** — step-by-step order of operations with checkboxes
 - **STUDY_NOTES.md** — patterns, bugs, architecture, talking points
-- **client/src/drills/** — intentionally broken code to fix
+- **PATTERN_CHEATSHEET.md** — one-line patterns for all 12 drills + reset command
 
 ## Project structure
 
