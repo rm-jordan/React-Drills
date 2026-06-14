@@ -1,3 +1,5 @@
+/** INTERVIEW DRILL 7 — UpdateCard (wired; verify key={update.id} in list) */
+
 import type { Update } from "../types";
 
 interface UpdateCardProps {

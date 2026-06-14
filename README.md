@@ -1,6 +1,18 @@
-# Employee Updates — Interview Practice
+# Employee Updates — Interview Simulator
 
-A minimal full-stack React + TypeScript app for practicing Lattice-style "Updates" feature patterns.
+Lattice-style full-stack interview practice. **Main app = solution. Scratch = where you implement.**
+
+## Start here
+
+1. **`INTERVIEW_DRILLS.md`** — 15 exercises (15–30 min each)
+2. **`CHEATSHEET.md`** — 10 patterns to memorize
+3. **`TALK_THROUGH.md`** — how to narrate in the interview
+
+```bash
+npm run install:all
+npm run dev              # reference app :5173 / :3001
+npm run dev:scratch      # your work     :5174 / :3002
+```
 
 ## Stack
 
@@ -44,13 +56,17 @@ Edit `client/src/currentUser.ts` to switch between employee and manager. No real
 | POST | `/api/updates/:id/comments` | Add comment |
 | GET | `/api/stats` | Counts by status |
 
-## Study
+## Study materials
 
-- **scratch/README.md** — **build from scratch** mini-app (`npm run dev:scratch` → :5174)
-- **[PRACTICE_GUIDE.md](./PRACTICE_GUIDE.md)** — study the main app in order
-- **STUDY_NOTES.md** — patterns, bugs, architecture, talking points
-- **PATTERN_CHEATSHEET.md** — one-line patterns + drill reset
-- **client/src/drills/** — bug-fix exercises
+| File | Purpose |
+|------|---------|
+| **INTERVIEW_DRILLS.md** | 15 progressive exercises — primary path |
+| **CHEATSHEET.md** | 10 React/TS patterns in this repo |
+| **TALK_THROUGH.md** | Interview communication examples |
+| **scratch/** | Hands-on implementation (`INTERVIEW DRILL` markers) |
+| **client/src/drills/** | Optional 10-min bug-fix warm-ups |
+| **STUDY_NOTES.md** | Architecture deep-dive |
+| **PRACTICE_GUIDE.md** | Read-through of main app |
 
 ## Project structure
 

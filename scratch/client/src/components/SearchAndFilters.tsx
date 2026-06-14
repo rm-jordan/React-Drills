@@ -1,4 +1,8 @@
-/** SESSION 5 — TODO: controlled search, status filter, sort field/direction */
+/**
+ * INTERVIEW DRILL 10 — Search, filter & sort controls
+ * See INTERVIEW_DRILLS.md Exercise 10
+ * Reference: ../../../client/src/components/SearchAndFilters.tsx
+ */
 
 import type { SortDirection, SortField, UpdateStatus } from "../types";
 

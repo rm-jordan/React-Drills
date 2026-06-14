@@ -1,3 +1,5 @@
+/** INTERVIEW DRILL 7 — List rendering & selection (wired; verify after DRILL 6) */
+
 import type { Update } from "../types";
 import { UpdateCard } from "./UpdateCard";
 

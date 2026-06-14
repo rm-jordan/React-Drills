@@ -1,4 +1,8 @@
-/** SESSION 3 — TODO: controlled form, client validate, createUpdate, onCreated */
+/**
+ * INTERVIEW DRILL 8 — Create update (controlled form + POST + onCreated)
+ * See INTERVIEW_DRILLS.md Exercise 8
+ * Reference: ../../../client/src/components/CreateUpdateForm.tsx
+ */
 
 import type { Update } from "../types";
 

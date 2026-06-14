@@ -1,11 +1,10 @@
 /**
- * SESSION 2 — YOUR TASKS:
+ * INTERVIEW DRILL 6 — Load data on mount (useEffect + loading/error)
+ * INTERVIEW DRILL 8 — handleCreated + CreateUpdateForm
+ * INTERVIEW DRILL 10 — SearchAndFilters + useMemo filteredUpdates
  *
- * 1. Set USE_API = true
- * 2. Change useState(STATIC_UPDATES) → useState([])
- * 3. Refresh — data should come from fetchUpdates()
- *
- * useEffect is already implemented. You are wiring it on, not writing from scratch.
+ * See INTERVIEW_DRILLS.md Exercises 6, 8, 10
+ * Reference: ../../../client/src/components/UpdatesPage.tsx
  */
 
 import { useEffect, useState } from "react";
@@ -14,16 +13,19 @@ import { STATIC_UPDATES, STATIC_USER_NAMES } from "../data/staticData";
 import type { Update } from "../types";
 import { UpdateDetail } from "./UpdateDetail";
 import { UpdateList } from "./UpdateList";
+// INTERVIEW DRILL 8: import CreateUpdateForm
+// INTERVIEW DRILL 10: import SearchAndFilters; import useMemo; import SortField, SortDirection, UpdateStatus
 
-// TODO Session 2: flip to true when ready to load from API
+// INTERVIEW DRILL 6: set true + initial state [] to load from API
 const USE_API = false;
 
 export function UpdatesPage() {
-  // TODO Session 2: when USE_API is true, start with [] not STATIC_UPDATES
   const [updates, setUpdates] = useState<Update[]>(STATIC_UPDATES);
   const [selectedId, setSelectedId] = useState<string | null>(STATIC_UPDATES[0]?.id ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // INTERVIEW DRILL 10: add state for search, statusFilter, sortField, sortDirection
 
   useEffect(() => {
     if (!USE_API) return;
@@ -58,7 +60,12 @@ export function UpdatesPage() {
     };
   }, []);
 
+  // INTERVIEW DRILL 10: implement filteredUpdates with useMemo (filter + [...result].sort)
+
   const selectedUpdate = updates.find((u) => u.id === selectedId) ?? null;
+
+  // INTERVIEW DRILL 8: implement handleCreated — setUpdates(prev => [update, ...prev])
+  // INTERVIEW DRILL 9: implement handleUpdated (.map) and handleDeleted (.filter + fix selectedId)
 
   if (loading) {
     return <p>Loading updates…</p>;
@@ -79,15 +86,19 @@ export function UpdatesPage() {
         <p className="muted">
           {USE_API
             ? `Loaded ${updates.length} updates from API`
-            : "Static data — set USE_API = true and initial state to []"}
+            : "Static data — complete DRILL 6 to load from API"}
         </p>
       </header>
+
+      {/* INTERVIEW DRILL 8: <CreateUpdateForm onCreated={handleCreated} /> */}
+
+      {/* INTERVIEW DRILL 10: <SearchAndFilters ... /> */}
 
       <div className="layout">
         <div>
           <h2>Updates ({updates.length})</h2>
           <UpdateList
-            updates={updates}
+            updates={updates /* DRILL 10: pass filteredUpdates instead */}
             userNames={STATIC_USER_NAMES}
             selectedId={selectedId}
             onSelect={setSelectedId}

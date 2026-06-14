@@ -22,12 +22,15 @@ export function UpdatesPage() {
   const [error, setError] = useState<string | null>(null);
   const [statsRefreshKey, setStatsRefreshKey] = useState(0);
 
+  // INTERVIEW DRILL 10 (reference): filter/sort state lives here
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<UpdateStatus | "all">("all");
   const [sortField, setSortField] = useState<SortField>("createdAt");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
   useEffect(() => {
+    // INTERVIEW DRILL 6 (reference): fetch on mount + cleanup flag
     let cancelled = false;
 
     async function load() {
@@ -61,6 +64,7 @@ export function UpdatesPage() {
   }, []);
 
   const filteredUpdates = useMemo(() => {
+    // INTERVIEW DRILL 10 (reference): derive filtered + sorted list; copy before sort
     const query = search.trim().toLowerCase();
 
     let result = updates.filter((u) => {
@@ -90,13 +94,14 @@ export function UpdatesPage() {
   const selectedUpdate = updates.find((u) => u.id === selectedId) ?? null;
 
   function handleCreated(update: Update) {
-    // Immutable update — do not push/mutate the array directly
+    // INTERVIEW DRILL 8 (reference): immutable prepend after POST
     setUpdates((prev) => [update, ...prev]);
     setSelectedId(update.id);
     setStatsRefreshKey((k) => k + 1);
   }
 
   function handleUpdated(update: Update) {
+    // INTERVIEW DRILL 9 (reference): replace one item with .map()
     setUpdates((prev) => prev.map((u) => (u.id === update.id ? update : u)));
   }
 

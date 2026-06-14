@@ -1,7 +1,7 @@
 /**
- * SESSION 1 — Seed data
- * TODO: Add users, updates, and comments arrays.
- * Reference: ../react-drills/server/src/data/seed.ts (main app)
+ * INTERVIEW DRILL 1 — Data models & seed data
+ * See INTERVIEW_DRILLS.md Exercise 1
+ * Reference: ../../server/src/data/seed.ts (main app)
  */
 
 import type { Comment, Update, User } from "../types.js";

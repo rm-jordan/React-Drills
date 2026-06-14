@@ -1,6 +1,7 @@
 /**
- * Session 2: read-only view is enough.
- * Sessions 4–6: add edit, delete, comments, manager review (see main app).
+ * INTERVIEW DRILL 7 — Read-only detail (wired)
+ * INTERVIEW DRILL 9 — Add edit, delete, onUpdated/onDeleted props
+ * See INTERVIEW_DRILLS.md Exercises 7, 9
  */
 import type { Update } from "../types";
 

@@ -1,7 +1,6 @@
 /**
- * SESSION 1 — Update + nested comment routes
- * TODO: GET/POST/PATCH/DELETE /api/updates
- *       GET/POST /api/updates/:id/comments
+ * INTERVIEW DRILL 4 — REST routes (updates CRUD)
+ * See INTERVIEW_DRILLS.md Exercise 4
  * Reference: ../../../server/src/routes/updates.ts
  */
 
@@ -33,25 +32,32 @@ updatesRouter.get("/:id", (req,res) => {
 
 
 // TODO: updatesRouter.post("/")
-updatesRouter.post("/" , (req,res) => {
-    const result = validateCreateUpdate(req.body)
-    if(!result.ok) {
-        res.status(400).json({ error: "This userId does not exist"})
-        return
-    }
+updatesRouter.post("/", (req, res) => {
+  const result = validateCreateUpdate(req.body);
+  if (!result.ok) {
+    res.status(400).json({ error: result.error });
+    return;
+  }
 
-    const newUpdate: Update = {
-        id: generateUpdateId(),
-        userId: result.data.userId,
-        title: result.data.title,
-        body: result.data.body,
-        status: "pending",
-        blockers: result.data.blockers,
-        createdAt: new Date().toISOString(),
-    }
-    updates.push(newUpdate)
-    res.status(201).json(newUpdate)
-})
+  const user = findUser(result.data.userId);
+  if (!user) {
+    res.status(400).json({ error: "userId does not exist" });
+    return;
+  }
+
+  const newUpdate: Update = {
+    id: generateUpdateId(),
+    userId: result.data.userId,
+    title: result.data.title,
+    body: result.data.body,
+    status: "pending",
+    blockers: result.data.blockers,
+    createdAt: new Date().toISOString(),
+  };
+
+  updates.push(newUpdate);
+  res.status(201).json(newUpdate);
+});
 
 // TODO: updatesRouter.patch("/:id")
 updatesRouter.patch("/:id", (req, res) => {

@@ -3,6 +3,7 @@ import type { Comment, Stats, Update, UpdateStatus } from "../types";
 const BASE = "/api";
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  // INTERVIEW DRILL 5 (reference): central fetch + error parsing
   const res = await fetch(`${BASE}${path}`, {
     headers: { "Content-Type": "application/json" },
     ...options,

@@ -1,6 +1,6 @@
 /**
- * SESSION 1 — In-memory store
- * TODO: Copy seed into mutable arrays, add generateUpdateId / generateCommentId / findUser
+ * INTERVIEW DRILL 2 — In-memory store + ID generation
+ * See INTERVIEW_DRILLS.md Exercise 2
  * Reference: ../../server/src/store.ts
  */
 

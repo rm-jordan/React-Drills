@@ -1,7 +1,6 @@
 /**
- * SESSION 2 — API client
- * TODO: request() helper + fetchUpdates, fetchUpdate, createUpdate, patchUpdate,
- *       deleteUpdate, fetchComments, createComment, fetchStats
+ * INTERVIEW DRILL 5 — API client
+ * See INTERVIEW_DRILLS.md Exercise 5
  * Reference: ../../../client/src/api/client.ts
  */
 

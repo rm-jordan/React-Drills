@@ -1,7 +1,6 @@
 /**
- * SESSION 1 — Server-side validation
- * TODO: validateCreateUpdate, validatePatchUpdate, validateCreateComment
- * Return { ok: true, data } or { ok: false, error: string }
+ * INTERVIEW DRILL 3 — Server-side validation
+ * See INTERVIEW_DRILLS.md Exercise 3
  * Reference: ../../server/src/validation.ts
  */
 
