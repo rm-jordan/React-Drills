@@ -13,6 +13,7 @@ import { STATIC_USER_NAMES } from "../data/staticData";
 import type { Update } from "../types";
 import { UpdateDetail } from "./UpdateDetail";
 import { UpdateList } from "./UpdateList";
+import { CreateUpdateForm } from "./CreateUpdateForm";
 // INTERVIEW DRILL 8: import CreateUpdateForm
 // INTERVIEW DRILL 10: import SearchAndFilters; import useMemo; import SortField, SortDirection, UpdateStatus
 
@@ -47,7 +48,14 @@ export function UpdatesPage() {
 
   const selectedUpdate = updates.find((u) => u.id === selectedId) ?? null;
 
-  // INTERVIEW DRILL 8: implement handleCreated — setUpdates(prev => [update, ...prev])
+  // DRILL 8 — handleCreated (2 steps):
+  //  1. setUpdates(prev => [update, ...prev])  — prepend, don't mutate
+  //  2. setSelectedId(update.id)               — show new item in detail panel
+  function handleCreated(update: Update) {
+    setUpdates((prev) => [update, ...prev]);
+    setSelectedId(update.id);
+  }
+
   // INTERVIEW DRILL 9: implement handleUpdated (.map) and handleDeleted (.filter + fix selectedId)
 
   if (loading) {
@@ -73,7 +81,7 @@ export function UpdatesPage() {
         </p>
       </header>
 
-      {/* INTERVIEW DRILL 8: <CreateUpdateForm onCreated={handleCreated} /> */}
+      <CreateUpdateForm onCreated={handleCreated} />
 
       {/* INTERVIEW DRILL 10: <SearchAndFilters ... /> */}
 
