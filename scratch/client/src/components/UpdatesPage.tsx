@@ -9,55 +9,38 @@
 
 import { useEffect, useState } from "react";
 import { fetchUpdates } from "../api/client";
-import { STATIC_UPDATES, STATIC_USER_NAMES } from "../data/staticData";
+import { STATIC_USER_NAMES } from "../data/staticData";
 import type { Update } from "../types";
 import { UpdateDetail } from "./UpdateDetail";
 import { UpdateList } from "./UpdateList";
 // INTERVIEW DRILL 8: import CreateUpdateForm
 // INTERVIEW DRILL 10: import SearchAndFilters; import useMemo; import SortField, SortDirection, UpdateStatus
 
-// INTERVIEW DRILL 6: set true + initial state [] to load from API
-const USE_API = false;
+
+const USE_API = true;
 
 export function UpdatesPage() {
-  const [updates, setUpdates] = useState<Update[]>(STATIC_UPDATES);
-  const [selectedId, setSelectedId] = useState<string | null>(STATIC_UPDATES[0]?.id ?? null);
-  const [loading, setLoading] = useState(false);
+  const [updates, setUpdates] = useState<Update[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // INTERVIEW DRILL 10: add state for search, statusFilter, sortField, sortDirection
 
   useEffect(() => {
-    if (!USE_API) return;
-
-    let cancelled = false;
-
-    async function load() {
-      setLoading(true);
-      setError(null);
-
+    async function loadUpdates() {
       try {
         const data = await fetchUpdates();
-        if (!cancelled) {
-          setUpdates(data);
-          setSelectedId(data[0]?.id ?? null);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load updates");
-        }
+        console.log("data",data)
+        setUpdates(data);
+        setSelectedId(data[0]?.id ?? null);
+      } catch {
+        setError("Could not load updates.");
       } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     }
-
-    load();
-
-    return () => {
-      cancelled = true;
-    };
+    loadUpdates();
   }, []);
 
   // INTERVIEW DRILL 10: implement filteredUpdates with useMemo (filter + [...result].sort)
